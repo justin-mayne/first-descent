@@ -47,12 +47,17 @@ describe("condition inference", () => {
       snowlineAltitude: 800,
       storms: [{ daysAgo: 1, centimeters: 40 }],
     };
-    const gentle = planarTerrain(20 * DEG);
+    // The slope sits at 1500 m, above the snowline.
+    const gentle = planarTerrain(20 * DEG, 1500);
     const calm = buildSnowModel(gentle, january);
     expect(calm.at(0, 0).condition).toBe("powder");
 
-    // A slope falling away to the east with westerly storm wind loads it.
-    const loaded = buildSnowModel(gentle, { ...january, stormWindRad: 270 * DEG });
+    // Slope descending toward +z with storm wind blowing toward -x: the
+    // cross-slope component loads the lee.
+    const loaded = buildSnowModel(
+      { height: (_x: number, z: number) => 1500 - z * Math.tan(20 * DEG) },
+      { ...january, stormWindRad: 270 * DEG }
+    );
     expect(loaded.at(0, 0).condition).toBe("windslab");
   });
 
@@ -72,18 +77,20 @@ describe("condition inference", () => {
   });
 
   it("south faces wet out in spring sun while north faces hold dry snow", () => {
-    const aprilNoon: Environment = {
+    const midMayNoon: Environment = {
       ...midlat,
-      dayOfYear: 105,
+      dayOfYear: 135,
       hour: 13,
       snowlineAltitude: 1400,
       storms: [{ daysAgo: 10, centimeters: 30 }],
     };
-    // South-facing wall: descends toward the north (-z if z points south).
-    const southFace = { height: (_x: number, z: number) => z * Math.tan(30 * DEG) };
-    const northFace = { height: (_x: number, z: number) => -z * Math.tan(30 * DEG) };
-    const south = buildSnowModel(southFace, aprilNoon).at(0, 0);
-    const north = buildSnowModel(northFace, aprilNoon).at(0, 0);
+    // z points north. The south face descends toward -z; the north face
+    // toward +z. Both 45 degrees, both topping 2000 m — steep enough that
+    // the noon sun distinguishes them.
+    const southFace = { height: (_x: number, z: number) => 2000 + z * Math.tan(45 * DEG) };
+    const northFace = { height: (_x: number, z: number) => 2000 - z * Math.tan(45 * DEG) };
+    const south = buildSnowModel(southFace, midMayNoon).at(0, 0);
+    const north = buildSnowModel(northFace, midMayNoon).at(0, 0);
     expect(["wet", "crust"]).toContain(south.condition);
     expect(["packed", "powder"]).toContain(north.condition);
   });

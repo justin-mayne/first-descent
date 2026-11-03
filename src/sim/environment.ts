@@ -44,7 +44,7 @@ export function sunExposure(env: Environment, normal: [number, number, number]):
   const decl = 23.44 * DEG * Math.sin((2 * Math.PI * (env.dayOfYear - 81)) / 365);
   const hourAngle = 15 * DEG * (env.hour - 12);
   const lat = env.latitude * DEG;
-  // Sun direction in world coordinates (x east, y up, z south), from
+  // Sun direction in world coordinates (x east, y up, z north), from
   // elevation and the east-south-west arc of the hour angle.
   const az = Math.atan2(
     -Math.sin(hourAngle),
@@ -61,10 +61,12 @@ export function sunExposure(env: Environment, normal: [number, number, number]):
 
 /**
  * Rough air temperature proxy in Celsius at a given altitude: seasonal
- * sinusoid (coldest mid-January for the northern mid-latitudes) with the
- * standard 6.5 C/km lapse rate.
+ * sinusoid (coldest mid-January, warmest mid-July for the northern
+ * mid-latitudes) with the standard 6.5 C/km lapse rate. Tuned so a clear
+ * mid-May noon can wet out a sun-facing face while midwinter stays deep
+ * in the dry-snow regime.
  */
 export function temperatureProxyC(env: Environment, altitude: number): number {
-  const seasonal = 2 - 12 * Math.cos((2 * Math.PI * (env.dayOfYear - 15)) / 365) - env.latitude * 0.35;
+  const seasonal = 14 - 14 * Math.cos((2 * Math.PI * (env.dayOfYear - 15)) / 365) - env.latitude * 0.18;
   return seasonal - 6.5 * (altitude / 1000);
 }

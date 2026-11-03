@@ -11,7 +11,8 @@ const winter: Environment = {
   latitude: 46,
   dayOfYear: 15,
   hour: 12,
-  snowlineAltitude: 800,
+  // The test slope sits at the snowline, so it stays snow-covered.
+  snowlineAltitude: 0,
   storms: [{ daysAgo: 10, centimeters: 30 }],
   stormWindRad: null,
 };

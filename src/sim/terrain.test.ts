@@ -39,6 +39,8 @@ describe("heightmapTerrain", () => {
     map.heights.set([0, 0, 0, 0, 100, 0, 0, 0, 0]);
     const terrain = heightmapTerrain(map);
     expect(terrain.height(10, 10)).toBeCloseTo(100);
-    expect(terrain.height(5, 5)).toBeCloseTo(50, 0);
+    // Halfway from the (0,0) corner to the 100 m center: bilinear gives
+    // a quarter of the peak height, not half.
+    expect(terrain.height(5, 5)).toBeCloseTo(25, 0);
   });
 });
