@@ -3,9 +3,110 @@
 > first-descent@0.1.0 typecheck /home/runner/work/first-descent/first-descent
 > tsc --noEmit
 
-src/sim/environment.test.ts(83,34): error TS6133: 'x' is declared but its value is never read.
-src/sim/environment.test.ts(84,34): error TS6133: 'x' is declared but its value is never read.
- ELIFECYCLE  Command failed with exit code 2.
 
 ===== test =====
-(no log)
+
+> first-descent@0.1.0 test /home/runner/work/first-descent/first-descent
+> vitest run
+
+
+[1m[7m[36m RUN [39m[27m[22m [36mv2.1.9 [39m[90m/home/runner/work/first-descent/first-descent[39m
+
+ [31m❯[39m src/sim/physics.test.ts [2m([22m[2m9 tests[22m[2m | [22m[31m2 failed[39m[2m)[22m[90m 14[2mms[22m[39m
+[31m   [31m×[31m skiing[2m > [22maccelerates down the fall line on packed snow[90m 6[2mms[22m[31m[39m
+[31m     → expected 0.07816324554800837 to be greater than 2[39m
+[31m   [31m×[31m skiing[2m > [22mpowder is slower than packed at equal speed and slope[90m 2[2mms[22m[31m[39m
+[31m     → expected 6.045501776106121 to be less than 6.045501776106121[39m
+ [31m❯[39m src/sim/environment.test.ts [2m([22m[2m7 tests[22m[2m | [22m[31m2 failed[39m[2m)[22m[90m 15[2mms[22m[39m
+[31m   [31m×[31m condition inference[2m > [22mcold + fresh storm = powder, wind-loaded = windslab[90m 8[2mms[22m[31m[39m
+[31m     → expected 'packed' to be 'powder' // Object.is equality[39m
+[31m   [31m×[31m condition inference[2m > [22msouth faces wet out in spring sun while north faces hold dry snow[90m 3[2mms[22m[31m[39m
+[31m     → expected [ 'wet', 'crust' ] to include 'packed'[39m
+ [32m✓[39m src/sim/surfaces.test.ts [2m([22m[2m5 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+ [32m✓[39m src/geo/geo.test.ts [2m([22m[2m5 tests[22m[2m)[22m[90m 20[2mms[22m[39m
+ [31m❯[39m src/sim/terrain.test.ts [2m([22m[2m4 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[90m 6[2mms[22m[39m
+[31m   [31m×[31m heightmapTerrain[2m > [22minterpolates heights from the grid[90m 3[2mms[22m[31m[39m
+[31m     → expected 25 to be close to 50, received difference is 25, but expected 0.5[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[1m[7m Failed Tests 5 [27m[22m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/sim/environment.test.ts[2m > [22mcondition inference[2m > [22mcold + fresh storm = powder, wind-loaded = windslab
+[31m[1mAssertionError[22m: expected 'packed' to be 'powder' // Object.is equality[39m
+
+Expected: [32m"p[7mowder[27m"[39m
+Received: [31m"p[7macked[27m"[39m
+
+[36m [2m❯[22m src/sim/environment.test.ts:[2m52:37[22m[39m
+    [90m 50| [39m    [35mconst[39m gentle [33m=[39m [34mplanarTerrain[39m([34m20[39m [33m*[39m [33mDEG[39m)[33m;[39m
+    [90m 51| [39m    [35mconst[39m calm [33m=[39m [34mbuildSnowModel[39m(gentle[33m,[39m january)[33m;[39m
+    [90m 52| [39m    [34mexpect[39m(calm[33m.[39m[34mat[39m([34m0[39m[33m,[39m [34m0[39m)[33m.[39mcondition)[33m.[39m[34mtoBe[39m([32m"powder"[39m)[33m;[39m
+    [90m   | [39m                                    [31m^[39m
+    [90m 53| [39m
+    [90m 54| [39m    [90m// A slope falling away to the east with westerly storm wind loads[39m…
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/sim/environment.test.ts[2m > [22mcondition inference[2m > [22msouth faces wet out in spring sun while north faces hold dry snow
+[31m[1mAssertionError[22m: expected [ 'wet', 'crust' ] to include 'packed'[39m
+[36m [2m❯[22m src/sim/environment.test.ts:[2m87:30[22m[39m
+    [90m 85| [39m    [35mconst[39m south [33m=[39m [34mbuildSnowModel[39m(southFace[33m,[39m aprilNoon)[33m.[39m[34mat[39m([34m0[39m[33m,[39m [34m0[39m)[33m;[39m
+    [90m 86| [39m    [35mconst[39m north [33m=[39m [34mbuildSnowModel[39m(northFace[33m,[39m aprilNoon)[33m.[39m[34mat[39m([34m0[39m[33m,[39m [34m0[39m)[33m;[39m
+    [90m 87| [39m    [34mexpect[39m([[32m"wet"[39m[33m,[39m [32m"crust"[39m])[33m.[39m[34mtoContain[39m(south[33m.[39mcondition)[33m;[39m
+    [90m   | [39m                             [31m^[39m
+    [90m 88| [39m    [34mexpect[39m([[32m"packed"[39m[33m,[39m [32m"powder"[39m])[33m.[39m[34mtoContain[39m(north[33m.[39mcondition)[33m;[39m
+    [90m 89| [39m  })[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/sim/physics.test.ts[2m > [22mskiing[2m > [22maccelerates down the fall line on packed snow
+[31m[1mAssertionError[22m: expected 0.07816324554800837 to be greater than 2[39m
+[36m [2m❯[22m src/sim/physics.test.ts:[2m33:18[22m[39m
+    [90m 31| [39m    [35mlet[39m s [33m=[39m skier[33m;[39m
+    [90m 32| [39m    [35mfor[39m ([35mlet[39m i [33m=[39m [34m0[39m[33m;[39m i [33m<[39m [34m60[39m[33m;[39m i[33m++[39m) s [33m=[39m [34mstepSkier[39m(s[33m,[39m [33mNEUTRAL_CONTROLS[39m[33m,[39m [34m1[39m …
+    [90m 33| [39m    [34mexpect[39m(s[33m.[39mvx)[33m.[39m[34mtoBeGreaterThan[39m([34m2[39m)[33m;[39m
+    [90m   | [39m                 [31m^[39m
+    [90m 34| [39m    [34mexpect[39m([33mMath[39m[33m.[39m[34mabs[39m(s[33m.[39mvz))[33m.[39m[34mtoBeLessThan[39m([34m0.01[39m)[33m;[39m
+    [90m 35| [39m    [34mexpect[39m(s[33m.[39mx)[33m.[39m[34mtoBeGreaterThan[39m([34m0[39m)[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/sim/physics.test.ts[2m > [22mskiing[2m > [22mpowder is slower than packed at equal speed and slope
+[31m[1mAssertionError[22m: expected 6.045501776106121 to be less than 6.045501776106121[39m
+[36m [2m❯[22m src/sim/physics.test.ts:[2m54:25[22m[39m
+    [90m 52| [39m      [35mreturn[39m s[33m.[39mvx[33m;[39m
+    [90m 53| [39m    }[33m;[39m
+    [90m 54| [39m    [34mexpect[39m([34mrun[39m(powder))[33m.[39m[34mtoBeLessThan[39m([34mrun[39m(packed))[33m;[39m
+    [90m   | [39m                        [31m^[39m
+    [90m 55| [39m  })[33m;[39m
+    [90m 56| [39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/5]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/sim/terrain.test.ts[2m > [22mheightmapTerrain[2m > [22minterpolates heights from the grid
+[31m[1mAssertionError[22m: expected 25 to be close to 50, received difference is 25, but expected 0.5[39m
+[36m [2m❯[22m src/sim/terrain.test.ts:[2m42:34[22m[39m
+    [90m 40| [39m    [35mconst[39m terrain [33m=[39m [34mheightmapTerrain[39m(map)[33m;[39m
+    [90m 41| [39m    [34mexpect[39m(terrain[33m.[39m[34mheight[39m([34m10[39m[33m,[39m [34m10[39m))[33m.[39m[34mtoBeCloseTo[39m([34m100[39m)[33m;[39m
+    [90m 42| [39m    [34mexpect[39m(terrain[33m.[39m[34mheight[39m([34m5[39m[33m,[39m [34m5[39m))[33m.[39m[34mtoBeCloseTo[39m([34m50[39m[33m,[39m [34m0[39m)[33m;[39m
+    [90m   | [39m                                 [31m^[39m
+    [90m 43| [39m  })[33m;[39m
+    [90m 44| [39m})[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/5]⎯[22m[39m
+
+[2m Test Files [22m [1m[31m3 failed[39m[22m[2m | [22m[1m[32m2 passed[39m[22m[90m (5)[39m
+[2m      Tests [22m [1m[31m5 failed[39m[22m[2m | [22m[1m[32m25 passed[39m[22m[90m (30)[39m
+[2m   Start at [22m 21:05:36
+[2m   Duration [22m 1.31s[2m (transform 244ms, setup 0ms, collect 184ms, tests 59ms, environment 1ms, prepare 455ms)[22m
+
+
+::error file=/home/runner/work/first-descent/first-descent/src/sim/environment.test.ts,title=src/sim/environment.test.ts > condition inference > cold + fresh storm = powder%2C wind-loaded = windslab,line=52,column=37::AssertionError: expected 'packed' to be 'powder' // Object.is equality%0A%0AExpected: "powder"%0AReceived: "packed"%0A%0A ❯ src/sim/environment.test.ts:52:37%0A%0A
+
+::error file=/home/runner/work/first-descent/first-descent/src/sim/environment.test.ts,title=src/sim/environment.test.ts > condition inference > south faces wet out in spring sun while north faces hold dry snow,line=87,column=30::AssertionError: expected [ 'wet', 'crust' ] to include 'packed'%0A ❯ src/sim/environment.test.ts:87:30%0A%0A
+
+::error file=/home/runner/work/first-descent/first-descent/src/sim/physics.test.ts,title=src/sim/physics.test.ts > skiing > accelerates down the fall line on packed snow,line=33,column=18::AssertionError: expected 0.07816324554800837 to be greater than 2%0A ❯ src/sim/physics.test.ts:33:18%0A%0A
+
+::error file=/home/runner/work/first-descent/first-descent/src/sim/physics.test.ts,title=src/sim/physics.test.ts > skiing > powder is slower than packed at equal speed and slope,line=54,column=25::AssertionError: expected 6.045501776106121 to be less than 6.045501776106121%0A ❯ src/sim/physics.test.ts:54:25%0A%0A
+
+::error file=/home/runner/work/first-descent/first-descent/src/sim/terrain.test.ts,title=src/sim/terrain.test.ts > heightmapTerrain > interpolates heights from the grid,line=42,column=34::AssertionError: expected 25 to be close to 50, received difference is 25, but expected 0.5%0A ❯ src/sim/terrain.test.ts:42:34%0A%0A
+ ELIFECYCLE  Test failed. See above for more details.
