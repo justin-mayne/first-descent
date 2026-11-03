@@ -80,8 +80,8 @@ describe("condition inference", () => {
       storms: [{ daysAgo: 10, centimeters: 30 }],
     };
     // South-facing wall: descends toward the north (-z if z points south).
-    const southFace = { height: (x: number, z: number) => z * Math.tan(30 * DEG) };
-    const northFace = { height: (x: number, z: number) => -z * Math.tan(30 * DEG) };
+    const southFace = { height: (_x: number, z: number) => z * Math.tan(30 * DEG) };
+    const northFace = { height: (_x: number, z: number) => -z * Math.tan(30 * DEG) };
     const south = buildSnowModel(southFace, aprilNoon).at(0, 0);
     const north = buildSnowModel(northFace, aprilNoon).at(0, 0);
     expect(["wet", "crust"]).toContain(south.condition);
