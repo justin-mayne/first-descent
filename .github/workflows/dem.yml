@@ -20,15 +20,15 @@ jobs:
       - name: Download Copernicus GLO-30 crop over The Sphinx
         id: download
         env:
-          OPENTOPO_KEY: ${{ secrets.OPENTOPO_KEY }}
+          OPENTOPO_API_KEY: ${{ secrets.OPENTOPO_API_KEY }}
         run: |
-          if [ -z "$OPENTOPO_KEY" ]; then
-            echo "::error::secret OPENTOPO_KEY is missing or empty - tell the agent the exact secret name you used"
+          if [ -z "$OPENTOPO_API_KEY" ]; then
+            echo "::error::secret OPENTOPO_API_KEY is missing or empty - tell the agent the exact secret name you used"
             exit 1
           fi
           mkdir -p data/sphinx/dem
           curl -sfL --retry 2 -o data/sphinx/dem/sphinx-cop30.tif \
-            "https://portal.opentopography.org/API/globaldem?demtype=COP30&south=60.62&north=60.71&west=-145.15&east=-145.00&outputFormat=GTiff&API_Key=${OPENTOPO_KEY}"
+            "https://portal.opentopography.org/API/globaldem?demtype=COP30&south=60.62&north=60.71&west=-145.15&east=-145.00&outputFormat=GTiff&API_Key=${OPENTOPO_API_KEY}"
           SIZE=$(stat -c%s data/sphinx/dem/sphinx-cop30.tif)
           MAGIC=$(head -c 4 data/sphinx/dem/sphinx-cop30.tif | od -An -tx1 | tr -d ' \n')
           echo "size=${SIZE}" >> "$GITHUB_OUTPUT"
