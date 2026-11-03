@@ -1,0 +1,93 @@
+{
+  "reference_anthropometrics_and_mass": {
+    "climber_body_mass_kg": 75.0,
+    "equipment_total_mass_kg": 14.5,
+    "total_system_mass_kg": 89.5,
+    "standing_height_m": 1.8,
+    "unloaded_com_height_m": 1.05,
+    "loaded_pack_com_height_m": 1.35,
+    "combined_system_com_height_m": 1.099,
+    "pack_posterior_offset_m": 0.22,
+    "combined_system_posterior_offset_m": 0.0356,
+    "boot_sole_length_m": 0.305,
+    "boot_forefoot_width_m": 0.105,
+    "boot_sole_planform_area_m2": 0.0285,
+    "stance_hip_width_m": 0.32,
+    "upper_limb_reach_radius_m": 0.72,
+    "lower_limb_step_stride_max_m": 0.65
+  },
+  "equipment_breakdown_masses_kg": {
+    "salomon_qst_blank_skis_186cm_pair_kg": 4.4,
+    "salomon_mtn_tech_bindings_pair_kg": 0.79,
+    "climbing_skins_mohair_nylon_pair_kg": 0.58,
+    "ski_touring_boots_pair_kg": 3.1,
+    "boot_crampons_12_point_steel_pair_kg": 0.88,
+    "ice_axes_dual_50cm_pair_kg": 0.95,
+    "mammut_ras_airbag_pack_loaded_kg": 3.8
+  },
+  "contact_hardware_geometry": {
+    "touring_ski_with_skin": {
+      "length_m": 1.86,
+      "waist_width_m": 0.112,
+      "effective_contact_length_m": 1.52,
+      "single_ski_contact_area_m2": 0.185,
+      "forward_glide_friction_mu_f": 0.12,
+      "backward_grip_friction_mu_b_powder": 0.68,
+      "backward_grip_friction_mu_b_crust": 0.46
+    },
+    "boot_crampon_12_point": {
+      "front_point_length_m": 0.028,
+      "secondary_vertical_point_length_m": 0.035,
+      "frontal_steel_bearing_area_m2": 0.0042,
+      "crust_penetration_depth_2019_m": 0.075,
+      "powder_penetration_depth_2022_m": 0.3,
+      "engaged_vertical_wall_area_2019_m2": 0.007875,
+      "engaged_vertical_wall_area_2022_m2": 0.0315
+    },
+    "mountaineering_ice_axe_50cm": {
+      "shaft_length_m": 0.5,
+      "shaft_width_m": 0.028,
+      "shaft_thickness_m": 0.018,
+      "pick_length_m": 0.115,
+      "adze_width_m": 0.055,
+      "shaft_plunge_depth_2019_m": 0.08,
+      "shaft_plunge_depth_2022_m": 0.35,
+      "single_shaft_shear_capacity_2019_N": 181.4,
+      "single_shaft_shear_capacity_2022_N": 595.8,
+      "single_pick_self_arrest_dynamic_drag_N": 950.0
+    }
+  },
+  "snow_mechanical_properties": {
+    "2019_bail_crust": {
+      "density_kg_m3": 310.0,
+      "crust_thickness_m": 0.06,
+      "sub_crust_facet_density_kg_m3": 220.0,
+      "cohesion_c_pa": 18000.0,
+      "sub_crust_cohesion_c_pa": 3500.0,
+      "internal_friction_angle_deg": 30.0,
+      "tan_internal_friction": 0.5774,
+      "basal_kinetic_friction_mu_k": 0.08,
+      "unconfined_compressive_strength_kpa": 62.0,
+      "exposed_rock_shark_probability": 0.18,
+      "rock_shark_depth_range_m": [
+        0.05,
+        0.25
+      ]
+    },
+    "2022_velvet_powder": {
+      "uncompressed_surface_density_kg_m3": 140.0,
+      "compressed_boot_step_density_kg_m3": 280.0,
+      "powder_layer_depth_m": 0.35,
+      "compressed_step_cohesion_c_pa": 16000.0,
+      "internal_friction_angle_deg": 35.0,
+      "tan_internal_friction": 0.7002,
+      "basal_kinetic_friction_mu_k": 0.14,
+      "unconfined_compressive_strength_kpa": 48.0,
+      "exposed_rock_shark_probability": 0.02,
+      "rock_shark_depth_range_m": [
+        0.25,
+        0.45
+      ]
+    }
+  }
+}
