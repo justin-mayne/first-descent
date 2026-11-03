@@ -11,8 +11,9 @@ const winter: Environment = {
   latitude: 46,
   dayOfYear: 15,
   hour: 12,
-  // The test slope sits at the snowline, so it stays snow-covered.
-  snowlineAltitude: 0,
+  // Midwinter Alaska: snow to the beach, so descending test slopes stay
+  // snow-covered even as the skier drops below the start altitude.
+  snowlineAltitude: -1000,
   storms: [{ daysAgo: 10, centimeters: 30 }],
   stormWindRad: null,
 };
@@ -39,7 +40,9 @@ describe("skiing", () => {
   it("decelerates to a stop on flat ground without reversing", () => {
     const { skier, model, terrain } = skierOn(0);
     let s: Skier = { ...skier, vx: 8 };
-    for (let i = 0; i < 240; i++) s = stepSkier(s, NEUTRAL_CONTROLS, 1 / 60, terrain, model);
+    // Packed friction + flow drag needs ~16 s to bleed 8 m/s; the static
+    // branch then holds it at exactly zero.
+    for (let i = 0; i < 1200; i++) s = stepSkier(s, NEUTRAL_CONTROLS, 1 / 60, terrain, model);
     expect(s.vx).toBe(0);
   });
 
