@@ -109,7 +109,8 @@ describe("climbing", () => {
   });
 
   it("rock is barely climbable and slow", () => {
-    const { skier, model, terrain } = skierOn(50, winter, "climb");
+    // Continental climate: 52 degrees has already sluffed to bare rock.
+    const { skier, model, terrain } = skierOn(52, { ...winter, snowClimate: "continental" }, "climb");
     let s = skier;
     for (let i = 0; i < 60; i++) s = stepSkier(s, NEUTRAL_CONTROLS, 1 / 60, terrain, model);
     expect(Math.abs(s.vx)).toBeLessThan(0.8);

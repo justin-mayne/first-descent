@@ -21,10 +21,9 @@ Source of truth for framing and modeling; update as evidence lands.
 
 ## Simulation notes
 
-- 50°+ sustained triggers our steep-band physics: classifySurface puts 50°+
-  into ice/rock by default — real Chugach faces hold snow steeper than the
-  temperate heuristic; the classifier needs an Alaska/coastal-snow climate
-  parameter (maritime snowpack adheres to 60°+)
+- 50°+ sustained handled: classifySurface takes a snow-climate parameter —
+  maritime (coastal Alaska) snow adheres to 55°, bares off past 65°; the
+  Sphinx runs with `snowClimate: "maritime"`
 - Bergschrund = a terrain hazard feature to extract from the DEM (curvature
   anomaly) and render as a hazard
 - West face + coastal latitude 60.5°N: solar geometry already handles it

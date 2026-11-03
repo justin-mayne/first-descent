@@ -56,6 +56,21 @@ describe("condition inference", () => {
     expect(loaded.at(0, 0).condition).toBe("windslab");
   });
 
+  it("maritime snow clings to a 55-degree Chugach face", () => {
+    const westFace = planarTerrain(55 * DEG);
+    const sphinx: Environment = {
+      ...midlat,
+      latitude: 60.5,
+      snowlineAltitude: 0,
+      snowClimate: "maritime",
+      storms: [{ daysAgo: 1, centimeters: 60 }],
+    };
+    expect(buildSnowModel(westFace, sphinx).at(0, 0).surface).toBe("snow");
+    // The temperate default calls the same face ice.
+    const temperate = buildSnowModel(westFace, { ...midlat, snowlineAltitude: 0 });
+    expect(temperate.at(0, 0).surface).toBe("ice");
+  });
+
   it("south faces wet out in spring sun while north faces hold dry snow", () => {
     const aprilNoon: Environment = {
       ...midlat,

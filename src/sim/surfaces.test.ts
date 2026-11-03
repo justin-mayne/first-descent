@@ -16,6 +16,12 @@ describe("surface classification", () => {
     expect(classifySurface(48 * DEG)).toBe("ice");
     expect(classifySurface(60 * DEG)).toBe("rock");
   });
+
+  it("climate sets how steeply snow adheres", () => {
+    expect(classifySurface(52 * DEG, "maritime")).toBe("snow");
+    expect(classifySurface(52 * DEG, "temperate")).toBe("ice");
+    expect(classifySurface(52 * DEG, "continental")).toBe("rock");
+  });
 });
 
 describe("coefficient tables", () => {

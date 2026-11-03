@@ -33,7 +33,7 @@ export function buildSnowModel(terrain: Terrain, env: Environment): SnowModel {
     at(x: number, z: number): SnowAt {
       const slope = slopeAt(terrain, x, z);
       const altitude = terrain.height(x, z);
-      const surface = classifySurface(slope.angleRad);
+      const surface = classifySurface(slope.angleRad, env.snowClimate);
       if (surface !== "snow") {
         return { surface, condition: "packed", snowDepth: 0 };
       }

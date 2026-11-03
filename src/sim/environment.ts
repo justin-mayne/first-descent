@@ -1,3 +1,5 @@
+import type { SnowClimate } from "./surfaces.js";
+
 const DEG = Math.PI / 180;
 
 export interface Environment {
@@ -13,6 +15,8 @@ export interface Environment {
   storms: { daysAgo: number; centimeters: number }[];
   /** Prevailing wind while the most recent storm fell, radians; null = calm. */
   stormWindRad: number | null;
+  /** How steeply snow adheres here; defaults to temperate. Maritime = coastal AK/PNW. */
+  snowClimate?: SnowClimate;
 }
 
 /**
