@@ -1,0 +1,11 @@
+===== typecheck =====
+
+> first-descent@0.1.0 typecheck /home/runner/work/first-descent/first-descent
+> tsc --noEmit
+
+src/sim/environment.test.ts(83,34): error TS6133: 'x' is declared but its value is never read.
+src/sim/environment.test.ts(84,34): error TS6133: 'x' is declared but its value is never read.
+ ELIFECYCLE  Command failed with exit code 2.
+
+===== test =====
+(no log)
