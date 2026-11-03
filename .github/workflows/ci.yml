@@ -52,9 +52,9 @@ jobs:
               echo
               echo "===== test ====="
               cat /tmp/test.log 2>/dev/null || echo "(no log)"
-            } > .ci/last-failure.log
+            } > .ci/last-failure.txt
           else
-            rm -f .ci/last-failure.log
+            rm -f .ci/last-failure.txt
           fi
           git config user.name "ci-reporter"
           git config user.email "actions@users.noreply.github.com"

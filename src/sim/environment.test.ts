@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { solarElevationRad, sunExposure, temperatureProxyC, type Environment } from "./environment.js";
+import { solarElevationRad, temperatureProxyC, type Environment } from "./environment.js";
 import { buildSnowModel } from "./snow-model.js";
 import { planarTerrain } from "./terrain.js";
 
