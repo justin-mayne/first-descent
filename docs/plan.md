@@ -117,7 +117,10 @@ tools/       pipeline CLI: data → framed terrain +    (Node)
 
 ## Open questions
 
-- **Which line first?** Mountain, route, season; existing GPX/photos/reports?
+- **Proving ground: The Sphinx, Alaska.** Pin the exact feature (coordinates
+  or a map link) — several Alaskan and one famous Californian feature share
+  the name, and DEM framing needs the precise spot. Preferred DEM: ArcticDEM
+  (~2 m, GeoTIFF); Copernicus GLO-30 as fallback.
 - Trip-report licensing/attribution when ingesting forum text
 - Imagery sources: free (ESRI World Imagery tiles) vs paid (MapTiler) quality
 - Multiplayer or ghosts of prior descents later?
