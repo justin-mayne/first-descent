@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>First Descent</title>
+    <style>
+      html, body { margin: 0; height: 100%; background: #0b0f14; color: #dfe7ee;
+        font-family: system-ui, sans-serif; overflow: hidden; }
+      #hud { position: fixed; top: 12px; left: 12px; z-index: 10; font-size: 13px;
+        line-height: 1.6; background: rgba(10,14,20,0.6); padding: 8px 12px;
+        border-radius: 8px; border: 1px solid #2a3644; user-select: none; }
+      #hud b { color: #8fd0ff; }
+      #hint { position: fixed; bottom: 12px; left: 12px; z-index: 10; font-size: 12px;
+        color: #7d8b99; background: rgba(10,14,20,0.6); padding: 6px 10px;
+        border-radius: 8px; border: 1px solid #2a3644; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <div id="hud"></div>
+    <div id="hint">A / D — edge &nbsp;·&nbsp; S — brake &nbsp;·&nbsp; drag — orbit camera</div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
