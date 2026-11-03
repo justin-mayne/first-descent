@@ -7,16 +7,35 @@ physics that reflect real snow conditions.
 
 ## Decisions (26 Oct 2026)
 
-1. **Terrain engine: hybrid.** MapLibre (real DEM + imagery tiles) for the
-   planning view; a three.js heightfield extracted from the same DEM for the
-   riding view. One DEM, two renderers, each doing what it is best at.
-2. **Art direction: keep both possible.** The terrain material supports
-   imagery-draped realism and stylized alpine as switchable modes.
+1. **Terrain engine: two renderers, one source of truth.** MapLibre (real DEM
+   + imagery tiles) for the planning view; a browser three.js view for
+   fast-iteration riding; and an **Unreal Engine track** for high-fidelity
+   rendering, run on the author's desktop. All three consume the same
+   engine-agnostic asset contract (below).
+2. **Art direction: keep every mode possible.** Imagery-draped realism and
+   stylized alpine as switchable modes in the browser renderer; UE pushes
+   realism further.
 3. **Scope driver: one real line.** Every pipeline decision is made against a
-   single specific descent the author has in mind, then generalized.
-4. **Evidence ingestion is a first-class input.** Photos and trip reports are
-   not decoration: they feed the snow-condition model (trip reports describe
-   conditions on aspects at times — ground truth for inference).
+   single specific descent, then generalized.
+4. **Evidence ingestion is a first-class input.** Photos and trip reports feed
+   the snow-condition model.
+
+## Division of labor
+
+| Where | What |
+|---|---|
+| Linux box (always on, agent) | pipeline, sim core, snow model, MapLibre planning view, browser ride view, tests, CI |
+| Desktop (occasional, human) | UE editor sessions: landscape import, materials, lighting, look pass |
+
+## Asset contract (M2 output, engine-agnostic)
+
+- `heightmap-16bit.raw` + `bounds.json` (geo bounds, grid size, meters/sample,
+  world scale) — directly importable as a UE Landscape
+- `slope.png`, `normal.png`, `aspect.png` — derived rasters, usable as
+  landscape layers / three.js textures / MapLibre hillshade source
+- `line.geojson` — the descent; splines in UE, overlays in map/sim views
+- `imagery/` — tile cache for draping (both renderers)
+- `conditions.json` — the snow-model field, shared by all renderers
 
 ## The three challenge areas
 
@@ -82,6 +101,10 @@ tools/       pipeline CLI: data → framed terrain +    (Node)
   HUD (speed/slope/condition). Tuned until the *feel* is right.
 - **M2 — The real line.** DEM for the chosen mountain parsed, framed, and
   rideable; GPX line overlaid; imagery-draped and stylized modes both render.
+  Output conforms to the asset contract.
+- **M2.5 — UE track opens.** `ue/` project scaffolding in-repo; desktop
+  session imports the M2 assets (Landscape from raw heightmap, layers, line
+  spline) and takes the first photoreal pass.
 - **M3 — Planning view.** MapLibre with the same DEM + line, slope-angle
   shading, route drawing that exports GPX.
 - **M4 — Conditions layer.** Snow model live in the sim and visualized on
