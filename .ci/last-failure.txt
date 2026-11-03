@@ -12,20 +12,20 @@
 
 [1m[7m[36m RUN [39m[27m[22m [36mv2.1.9 [39m[90m/home/runner/work/first-descent/first-descent[39m
 
- [31m❯[39m src/sim/physics.test.ts [2m([22m[2m9 tests[22m[2m | [22m[31m2 failed[39m[2m)[22m[90m 14[2mms[22m[39m
-[31m   [31m×[31m skiing[2m > [22maccelerates down the fall line on packed snow[90m 6[2mms[22m[31m[39m
+ [31m❯[39m src/sim/physics.test.ts [2m([22m[2m9 tests[22m[2m | [22m[31m2 failed[39m[2m)[22m[90m 17[2mms[22m[39m
+[31m   [31m×[31m skiing[2m > [22maccelerates down the fall line on packed snow[90m 8[2mms[22m[31m[39m
 [31m     → expected 0.07816324554800837 to be greater than 2[39m
 [31m   [31m×[31m skiing[2m > [22mpowder is slower than packed at equal speed and slope[90m 2[2mms[22m[31m[39m
 [31m     → expected 6.045501776106121 to be less than 6.045501776106121[39m
- [31m❯[39m src/sim/environment.test.ts [2m([22m[2m7 tests[22m[2m | [22m[31m2 failed[39m[2m)[22m[90m 15[2mms[22m[39m
-[31m   [31m×[31m condition inference[2m > [22mcold + fresh storm = powder, wind-loaded = windslab[90m 8[2mms[22m[31m[39m
+ [31m❯[39m src/sim/environment.test.ts [2m([22m[2m7 tests[22m[2m | [22m[31m2 failed[39m[2m)[22m[90m 12[2mms[22m[39m
+[31m   [31m×[31m condition inference[2m > [22mcold + fresh storm = powder, wind-loaded = windslab[90m 6[2mms[22m[31m[39m
 [31m     → expected 'packed' to be 'powder' // Object.is equality[39m
-[31m   [31m×[31m condition inference[2m > [22msouth faces wet out in spring sun while north faces hold dry snow[90m 3[2mms[22m[31m[39m
+[31m   [31m×[31m condition inference[2m > [22msouth faces wet out in spring sun while north faces hold dry snow[90m 2[2mms[22m[31m[39m
 [31m     → expected [ 'wet', 'crust' ] to include 'packed'[39m
- [32m✓[39m src/sim/surfaces.test.ts [2m([22m[2m5 tests[22m[2m)[22m[90m 4[2mms[22m[39m
- [32m✓[39m src/geo/geo.test.ts [2m([22m[2m5 tests[22m[2m)[22m[90m 20[2mms[22m[39m
- [31m❯[39m src/sim/terrain.test.ts [2m([22m[2m4 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[90m 6[2mms[22m[39m
-[31m   [31m×[31m heightmapTerrain[2m > [22minterpolates heights from the grid[90m 3[2mms[22m[31m[39m
+ [32m✓[39m src/sim/surfaces.test.ts [2m([22m[2m5 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/geo/geo.test.ts [2m([22m[2m5 tests[22m[2m)[22m[90m 18[2mms[22m[39m
+ [31m❯[39m src/sim/terrain.test.ts [2m([22m[2m4 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[90m 9[2mms[22m[39m
+[31m   [31m×[31m heightmapTerrain[2m > [22minterpolates heights from the grid[90m 5[2mms[22m[31m[39m
 [31m     → expected 25 to be close to 50, received difference is 25, but expected 0.5[39m
 
 [31m⎯⎯⎯⎯⎯⎯⎯[1m[7m Failed Tests 5 [27m[22m⎯⎯⎯⎯⎯⎯⎯[39m
@@ -96,8 +96,8 @@ Received: [31m"p[7macked[27m"[39m
 
 [2m Test Files [22m [1m[31m3 failed[39m[22m[2m | [22m[1m[32m2 passed[39m[22m[90m (5)[39m
 [2m      Tests [22m [1m[31m5 failed[39m[22m[2m | [22m[1m[32m25 passed[39m[22m[90m (30)[39m
-[2m   Start at [22m 21:05:36
-[2m   Duration [22m 1.31s[2m (transform 244ms, setup 0ms, collect 184ms, tests 59ms, environment 1ms, prepare 455ms)[22m
+[2m   Start at [22m 21:07:06
+[2m   Duration [22m 1.30s[2m (transform 187ms, setup 0ms, collect 242ms, tests 60ms, environment 1ms, prepare 399ms)[22m
 
 
 ::error file=/home/runner/work/first-descent/first-descent/src/sim/environment.test.ts,title=src/sim/environment.test.ts > condition inference > cold + fresh storm = powder%2C wind-loaded = windslab,line=52,column=37::AssertionError: expected 'packed' to be 'powder' // Object.is equality%0A%0AExpected: "powder"%0AReceived: "packed"%0A%0A ❯ src/sim/environment.test.ts:52:37%0A%0A
