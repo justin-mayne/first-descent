@@ -4,6 +4,13 @@ on:
   push:
   pull_request:
 
+permissions:
+  contents: write
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -15,6 +22,43 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: pnpm install --no-frozen-lockfile
-      - run: pnpm typecheck
-      - run: pnpm test
+      - name: Install
+        run: pnpm install --no-frozen-lockfile
+      - name: Typecheck
+        shell: bash
+        run: pnpm typecheck 2>&1 | tee /tmp/typecheck.log
+      - name: Test
+        shell: bash
+        run: pnpm test 2>&1 | tee /tmp/test.log
+
+      # The dev box has no API token for this repo, so CI reports its own
+      # verdict back through the repo (read via the deploy key). [skip ci]
+      # keeps the report commit from re-triggering this workflow.
+      - name: Report result
+        if: always() && github.event_name == 'push' && github.ref == 'refs/heads/master'
+        shell: bash
+        run: |
+          mkdir -p .ci
+          {
+            echo "commit=${{ github.sha }}"
+            echo "verdict=${{ job.status }}"
+            echo "run_id=${{ github.run_id }}"
+            echo "at=$(date -u +%FT%TZ)"
+          } > .ci/last-run.env
+          if [ "${{ job.status }}" != "success" ]; then
+            {
+              echo "===== typecheck ====="
+              cat /tmp/typecheck.log 2>/dev/null || echo "(no log)"
+              echo
+              echo "===== test ====="
+              cat /tmp/test.log 2>/dev/null || echo "(no log)"
+            } > .ci/last-failure.log
+          else
+            rm -f .ci/last-failure.log
+          fi
+          git config user.name "ci-reporter"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A .ci
+          git commit -m "CI report: ${{ job.status }} [skip ci]" || exit 0
+          git pull --rebase origin master
+          git push origin master
