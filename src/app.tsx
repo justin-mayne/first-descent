@@ -97,16 +97,22 @@ function Rider({
 
     frame.current++;
     if (frame.current % 5 === 0) {
-      if (!hud.current) hud.current = document.getElementById("hud") as HTMLDivElement | null;
-      const at = world.snow.at(s.x, s.z);
-      const p = physicsFor(at);
-      const slope = world.terrain.height(s.x, s.z - 8) - world.terrain.height(s.x, s.z + 8);
-      hud.current.innerHTML =
-        `<b>${Math.hypot(s.vx, s.vz).toFixed(0)} m/s</b> · ${s.mode}` +
-        ` · alt <b>${Math.round(altitudeOf(world, s))} m</b>` +
-        ` · ${Math.round((Math.atan(slope / 16) * 180) / Math.PI)}°` +
-        ` · ${at.surface}/${at.condition}` +
-        ` · grip ${p.edgeGrip.toFixed(2)}`;
+      let el = hud.current;
+      if (!el) {
+        el = document.getElementById("hud") as HTMLDivElement | null;
+        hud.current = el;
+      }
+      if (el) {
+        const at = world.snow.at(s.x, s.z);
+        const p = physicsFor(at);
+        const slope = world.terrain.height(s.x, s.z - 8) - world.terrain.height(s.x, s.z + 8);
+        el.innerHTML =
+          `<b>${Math.hypot(s.vx, s.vz).toFixed(0)} m/s</b> · ${s.mode}` +
+          ` · alt <b>${Math.round(altitudeOf(world, s))} m</b>` +
+          ` · ${Math.round((Math.atan(slope / 16) * 180) / Math.PI)}°` +
+          ` · ${at.surface}/${at.condition}` +
+          ` · grip ${p.edgeGrip.toFixed(2)}`;
+      }
     }
   });
 
