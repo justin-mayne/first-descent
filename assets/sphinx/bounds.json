@@ -1,0 +1,30 @@
+{
+  "geo": {
+    "north": 60.68,
+    "south": 60.65,
+    "west": -145.095,
+    "east": -145.045
+  },
+  "grid": {
+    "width": 183,
+    "height": 224,
+    "spacingMeters": 15
+  },
+  "height": {
+    "minMeters": 1066.642578125,
+    "maxMeters": 1954.70703125,
+    "encoding": "uint16-le",
+    "zeroOffsetMeters": 1066.642578125,
+    "metersPerUnit": 0.013550994935912108
+  },
+  "frame": {
+    "origin": {
+      "lat": 60.68,
+      "lon": -145.095
+    },
+    "xAxis": "east",
+    "zAxis": "south",
+    "metersPerDegLat": 111320,
+    "metersPerDegLon": 54537.34639518031
+  }
+}
