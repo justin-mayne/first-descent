@@ -1,0 +1,49 @@
+name: Deploy Pages
+
+# Every green master push builds the ride view and publishes it to
+# GitHub Pages so the sim is testable from any browser (iPad Safari
+# included). Requires Pages source = GitHub Actions (repo settings).
+
+on:
+  push:
+    branches: [master]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install
+        run: pnpm install --no-frozen-lockfile
+      - name: Verify
+        run: |
+          pnpm typecheck
+          pnpm test
+      - name: Build
+        run: pnpm build
+      - name: Bundle the asset contract into the site
+        run: mkdir -p dist/assets && cp -r assets/sphinx dist/assets/sphinx
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - id: deployment
+        uses: actions/deploy-pages@v4

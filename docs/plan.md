@@ -112,8 +112,15 @@ tools/       pipeline CLI: data → framed terrain +    (Node)
 - **M5 — Evidence ingestion.** Photos register by geotag; trip reports
   extract condition observations (assisted structuring) and pin them into
   the snow model.
-- **M6 — The loop.** Read beta → plan on the map → ride it in the sim with
-  conditions inferred from the evidence.
+- **M5.5 — Loadout & clothing.** Data-driven gear catalog (ski/glacier kit,
+  avalanche safety, camping, clothing layers) with per-item mass and
+  physics modifiers; loadouts chosen in the planning view and carried into
+  the ride. Mass drives flow drag, braking, climb pace, and the balance
+  model (COM offset); clothing interacts with the conditions model.
+  First real loadout is specced: the 89.5 kg Townsend kit from the
+  simulation spec's mechanics parameters.
+- **M6 — The loop.** Read beta → plan on the map → gear up → ride it in
+  the sim with conditions inferred from the evidence.
 
 ## Open questions
 
