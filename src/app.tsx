@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import type { CSSProperties, PointerEvent as ReactPointerEvent, ReactElement } from "react";
+import { Component, useEffect, useMemo, useRef, useState } from "react";
+import type { CSSProperties, PointerEvent as ReactPointerEvent, ReactElement, ReactNode } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import type { Heightmap } from "./geo/heightmap.js";
@@ -65,6 +65,11 @@ function Rider({
   const camPos = useRef(new THREE.Vector3(start.x, 2500, start.z + 60));
 
   useFrame((_, delta) => {
+    if (frame.current === 0) {
+      let el = document.getElementById("hud");
+      if (el) el.textContent = "SIM LIVE";
+    }
+    frame.current++;
     if (controls.resetRequested) {
       skier.current = dropInSkier(world, start.x, start.z);
       controls.resetRequested = false;
@@ -95,7 +100,6 @@ function Rider({
     camera.position.copy(camPos.current);
     camera.lookAt(s.x, ground + 2, s.z);
 
-    frame.current++;
     if (frame.current % 5 === 0) {
       let el = hud.current;
       if (!el) {
@@ -172,7 +176,33 @@ function TouchPad({ controls }: { controls: RideControls }): ReactElement {
   );
 }
 
+class Boundary extends Component<{ children: ReactNode }, { err: string | null }> {
+  constructor(props: { children: ReactNode }) {
+    super(props);
+    this.state = { err: null };
+  }
+  static getDerivedStateFromError(err: unknown): { err: string } {
+    return { err: err instanceof Error ? `${err.message}\n${err.stack ?? ""}` : String(err) };
+  }
+  render(): ReactNode {
+    if (this.state.err) {
+      return <pre style={{ padding: 24, whiteSpace: "pre-wrap", color: "#ff9c8a" }}>{this.state.err}</pre>;
+    }
+    return this.props.children;
+  }
+}
+
+function supportsWebgl(): boolean {
+  try {
+    const c = document.createElement("canvas");
+    return Boolean(c.getContext("webgl2") ?? c.getContext("webgl"));
+  } catch {
+    return false;
+  }
+}
+
 export function App(): ReactElement {
+  const [status, setStatus] = useState("booting…");
   const [loaded, setLoaded] = useState<Loaded | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [controls, setControls] = useState<RideControls | null>(null);
@@ -186,15 +216,21 @@ export function App(): ReactElement {
   useEffect(() => {
     void (async () => {
       try {
+        setStatus(`fetching asset contract from ${BASE}…`);
         const [boundsRes, rawRes] = await Promise.all([
           fetch(`${BASE}assets/sphinx/bounds.json`),
           fetch(`${BASE}assets/sphinx/heightmap-16bit.raw`),
         ]);
-        if (!boundsRes.ok || !rawRes.ok) throw new Error("asset contract not found");
+        if (!boundsRes.ok || !rawRes.ok) {
+          throw new Error(`asset fetch failed: bounds ${boundsRes.status}, raw ${rawRes.status}`);
+        }
+        setStatus("decoding heightfield…");
         const bounds = (await boundsRes.json()) as ContractBounds;
         const raw = new Uint8Array(await rawRes.arrayBuffer());
         const map = decodeHeightfield(raw, bounds);
+        setStatus("building world…");
         setLoaded({ map, bounds, world: makeRide(map, WINTER) });
+        setStatus("ready");
       } catch (e) {
         setError(String(e));
       }
@@ -202,13 +238,14 @@ export function App(): ReactElement {
   }, []);
 
   if (error) return <div style={{ padding: 24 }}>Failed to load the mountain: {error}</div>;
-  if (!loaded || !controls) return <div style={{ padding: 24 }}>Loading The Sphinx…</div>;
+  if (!supportsWebgl()) return <div style={{ padding: 24 }}>WebGL is not available in this browser.</div>;
+  if (!loaded || !controls) return <div style={{ padding: 24 }}>{status}</div>;
 
   const start = worldOf(loaded.bounds.frame, DROP_IN.lat, DROP_IN.lon);
   const midX = (loaded.map.width * loaded.map.spacing) / 2;
   const midZ = (loaded.map.height * loaded.map.spacing) / 2;
   return (
-    <>
+    <Boundary>
       <Canvas
         camera={{ fov: 62, near: 0.5, far: 12000, position: [start.x, 2300, start.z + 60] }}
         onCreated={({ scene }) => {
@@ -222,6 +259,6 @@ export function App(): ReactElement {
         <Rider world={loaded.world} start={start} controls={controls} />
       </Canvas>
       <TouchPad controls={controls} />
-    </>
+    </Boundary>
   );
 }
