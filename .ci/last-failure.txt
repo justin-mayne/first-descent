@@ -1,0 +1,73 @@
+===== typecheck =====
+
+> first-descent@0.1.0 typecheck /home/runner/work/first-descent/first-descent
+> tsc --noEmit
+
+
+===== test =====
+
+> first-descent@0.1.0 test /home/runner/work/first-descent/first-descent
+> vitest run
+
+
+[1m[7m[36m RUN [39m[27m[22m [36mv2.1.9 [39m[90m/home/runner/work/first-descent/first-descent[39m
+
+ [32m✓[39m src/sim/physics.test.ts [2m([22m[2m9 tests[22m[2m)[22m[90m 18[2mms[22m[39m
+ [32m✓[39m src/geo/contract.test.ts [2m([22m[2m2 tests[22m[2m)[22m[90m 218[2mms[22m[39m
+ [32m✓[39m src/sim/environment.test.ts [2m([22m[2m7 tests[22m[2m)[22m[90m 10[2mms[22m[39m
+ [32m✓[39m src/geo/frame.test.ts [2m([22m[2m2 tests[22m[2m)[22m[90m 166[2mms[22m[39m
+ [32m✓[39m src/geo/route.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 382[2mms[22m[39m
+ [31m❯[39m src/geo/png.test.ts [2m([22m[2m2 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[33m 1487[2mms[22m[39m
+[31m   [31m×[31m encodePngRgb[2m > [22mproduces a structurally valid PNG that inflates back to the raw scanlines[90m 14[2mms[22m[31m[39m
+[31m     → expected [ Array(9) ] to deeply equal [ 10, 20, 30, 40, 50, 60, 70, 80, 90 ][39m
+   [33m[2m✓[22m[39m encodePngRgb[2m > [22mround-trips pixel data for a larger image across stored-block boundaries [33m1472[2mms[22m[39m
+ [32m✓[39m src/geo/geotiff.test.ts [2m([22m[2m2 tests[22m[2m)[22m[90m 175[2mms[22m[39m
+ [32m✓[39m src/sim/surfaces.test.ts [2m([22m[2m5 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/geo/geo.test.ts [2m([22m[2m5 tests[22m[2m)[22m[90m 35[2mms[22m[39m
+ [32m✓[39m src/sim/terrain.test.ts [2m([22m[2m4 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+ [32m✓[39m src/geo/derive.test.ts [2m([22m[2m2 tests[22m[2m)[22m[90m 9[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[1m[7m Failed Tests 1 [27m[22m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/geo/png.test.ts[2m > [22mencodePngRgb[2m > [22mproduces a structurally valid PNG that inflates back to the raw scanlines
+[31m[1mAssertionError[22m: expected [ Array(9) ] to deeply equal [ 10, 20, 30, 40, 50, 60, 70, 80, 90 ][39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[2m  Array [[22m
+[31m+   255,[39m
+[31m+   0,[39m
+[31m+   0,[39m
+[31m+   0,[39m
+[31m+   255,[39m
+[31m+   0,[39m
+[2m    10,[22m
+[2m    20,[22m
+[2m    30,[22m
+[32m-   40,[39m
+[32m-   50,[39m
+[32m-   60,[39m
+[32m-   70,[39m
+[32m-   80,[39m
+[32m-   90,[39m
+[2m  ][22m
+
+[36m [2m❯[22m src/geo/png.test.ts:[2m42:46[22m[39m
+    [90m 40| [39m    [34mexpect[39m([[33m...[39minflated[33m.[39m[34msubarray[39m([34m1[39m[33m,[39m [34m1[39m [33m+[39m [34m9[39m)])[33m.[39m[34mtoEqual[39m([[34m255[39m[33m,[39m [34m0[39m[33m,[39m [34m0[39m[33m,[39m [34m0[39m[33m,[39m [34m25[39m…
+    [90m 41| [39m    [34mexpect[39m(inflated[[34m4[39m])[33m.[39m[34mtoBe[39m([34m0[39m)[33m;[39m [90m// row 2 filter byte[39m
+    [90m 42| [39m    [34mexpect[39m([[33m...[39minflated[33m.[39m[34msubarray[39m([34m5[39m[33m,[39m [34m5[39m [33m+[39m [34m9[39m)])[33m.[39m[34mtoEqual[39m([[34m10[39m[33m,[39m [34m20[39m[33m,[39m [34m30[39m[33m,[39m [34m40[39m[33m,[39m …
+    [90m   | [39m                                             [31m^[39m
+    [90m 43| [39m  })[33m;[39m
+    [90m 44| [39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m10 passed[39m[22m[90m (11)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m42 passed[39m[22m[90m (43)[39m
+[2m   Start at [22m 18:41:58
+[2m   Duration [22m 5.57s[2m (transform 376ms, setup 0ms, collect 561ms, tests 2.51s, environment 3ms, prepare 975ms)[22m
+
+
+::error file=/home/runner/work/first-descent/first-descent/src/geo/png.test.ts,title=src/geo/png.test.ts > encodePngRgb > produces a structurally valid PNG that inflates back to the raw scanlines,line=42,column=46::AssertionError: expected [ Array(9) ] to deeply equal [ 10, 20, 30, 40, 50, 60, 70, 80, 90 ]%0A%0A- Expected%0A+ Received%0A%0A  Array [%0A+   255,%0A+   0,%0A+   0,%0A+   0,%0A+   255,%0A+   0,%0A    10,%0A    20,%0A    30,%0A-   40,%0A-   50,%0A-   60,%0A-   70,%0A-   80,%0A-   90,%0A  ]%0A%0A ❯ src/geo/png.test.ts:42:46%0A%0A
+ ELIFECYCLE  Test failed. See above for more details.
