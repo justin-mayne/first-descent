@@ -12,37 +12,36 @@
 
 [1m[7m[36m RUN [39m[27m[22m [36mv2.1.9 [39m[90m/home/runner/work/first-descent/first-descent[39m
 
- [32m✓[39m src/sim/physics.test.ts [2m([22m[2m9 tests[22m[2m)[22m[90m 36[2mms[22m[39m
- [32m✓[39m src/sim/environment.test.ts [2m([22m[2m7 tests[22m[2m)[22m[90m 8[2mms[22m[39m
- [31m❯[39m src/geo/geotiff.test.ts [2m([22m[2m2 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[90m 173[2mms[22m[39m
-[31m   [31m×[31m parseGeotiff[2m > [22mreads a synthetic uncompressed stripped GeoTIFF[90m 7[2mms[22m[31m[39m
-[31m     → not a TIFF[39m
- [32m✓[39m src/geo/frame.test.ts [2m([22m[2m2 tests[22m[2m)[22m[90m 166[2mms[22m[39m
- [32m✓[39m src/geo/route.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 351[2mms[22m[39m
- [32m✓[39m src/sim/surfaces.test.ts [2m([22m[2m5 tests[22m[2m)[22m[90m 6[2mms[22m[39m
- [32m✓[39m src/geo/geo.test.ts [2m([22m[2m5 tests[22m[2m)[22m[90m 21[2mms[22m[39m
- [32m✓[39m src/sim/terrain.test.ts [2m([22m[2m4 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/sim/physics.test.ts [2m([22m[2m9 tests[22m[2m)[22m[90m 11[2mms[22m[39m
+ [32m✓[39m src/sim/environment.test.ts [2m([22m[2m7 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+ [32m✓[39m src/geo/frame.test.ts [2m([22m[2m2 tests[22m[2m)[22m[90m 105[2mms[22m[39m
+ [32m✓[39m src/geo/route.test.ts [2m([22m[2m3 tests[22m[2m)[22m[90m 233[2mms[22m[39m
+ [31m❯[39m src/geo/geotiff.test.ts [2m([22m[2m2 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[90m 103[2mms[22m[39m
+[31m   [31m×[31m parseGeotiff[2m > [22mreads an uncompressed stripped GeoTIFF fixture (3x2 float32)[90m 4[2mms[22m[31m[39m
+[31m     → expected +0 to be close to 60, received difference is 60, but expected 0.005[39m
+ [32m✓[39m src/sim/surfaces.test.ts [2m([22m[2m5 tests[22m[2m)[22m[90m 3[2mms[22m[39m
+ [32m✓[39m src/geo/geo.test.ts [2m([22m[2m5 tests[22m[2m)[22m[90m 14[2mms[22m[39m
+ [32m✓[39m src/sim/terrain.test.ts [2m([22m[2m4 tests[22m[2m)[22m[90m 3[2mms[22m[39m
 
 [31m⎯⎯⎯⎯⎯⎯⎯[1m[7m Failed Tests 1 [27m[22m⎯⎯⎯⎯⎯⎯⎯[39m
 
-[31m[1m[7m FAIL [27m[22m[39m src/geo/geotiff.test.ts[2m > [22mparseGeotiff[2m > [22mreads a synthetic uncompressed stripped GeoTIFF
-[31m[1mError[22m: not a TIFF[39m
-[36m [2m❯[22m Module.parseGeotiff src/geo/geotiff.ts:[2m37:47[22m[39m
-    [90m 35| [39m  [35mconst[39m dv [33m=[39m [35mnew[39m [33mDataView[39m(buf)[33m;[39m
-    [90m 36| [39m  [35mconst[39m bom [33m=[39m dv[33m.[39m[34mgetUint16[39m([34m0[39m[33m,[39m [35mfalse[39m)[33m;[39m
-    [90m 37| [39m  [35mif[39m (bom [33m!==[39m [34m0x4949[39m [33m&&[39m bom [33m!==[39m [34m0x4d4d[39m) [35mthrow[39m [35mnew[39m [33mError[39m([32m"not a TIFF"[39m)[33m;[39m
-    [90m   | [39m                                              [31m^[39m
-    [90m 38| [39m  [35mconst[39m le [33m=[39m bom [33m===[39m [34m0x4949[39m[33m;[39m
-    [90m 39| [39m  [35mif[39m (dv[33m.[39m[34mgetUint16[39m([34m2[39m[33m,[39m le) [33m!==[39m [34m42[39m) [35mthrow[39m [35mnew[39m [33mError[39m([32m"not a baseline TIFF[39m…
-[90m [2m❯[22m src/geo/geotiff.test.ts:[2m73:18[22m[39m
+[31m[1m[7m FAIL [27m[22m[39m src/geo/geotiff.test.ts[2m > [22mparseGeotiff[2m > [22mreads an uncompressed stripped GeoTIFF fixture (3x2 float32)
+[31m[1mAssertionError[22m: expected +0 to be close to 60, received difference is 60, but expected 0.005[39m
+[36m [2m❯[22m src/geo/geotiff.test.ts:[2m24:27[22m[39m
+    [90m 22| [39m    [34mexpect[39m(grid[33m.[39mscaleLatDeg)[33m.[39m[34mtoBeCloseTo[39m([34m0.001[39m)[33m;[39m
+    [90m 23| [39m    [34mexpect[39m(grid[33m.[39mwestDeg)[33m.[39m[34mtoBeCloseTo[39m([34m0[39m)[33m;[39m
+    [90m 24| [39m    [34mexpect[39m(grid[33m.[39mnorthDeg)[33m.[39m[34mtoBeCloseTo[39m([34m60[39m)[33m;[39m
+    [90m   | [39m                          [31m^[39m
+    [90m 25| [39m    [34mexpect[39m([33mArray[39m[33m.[39m[35mfrom[39m(grid[33m.[39mheights))[33m.[39m[34mtoEqual[39m([[34m10[39m[33m,[39m [34m20[39m[33m,[39m [34m30[39m[33m,[39m [34m40[39m[33m,[39m [34m50[39m[33m,[39m [34m60[39m])[33m;[39m
+    [90m 26| [39m  })[33m;[39m
 
 [31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
 
 [2m Test Files [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m7 passed[39m[22m[90m (8)[39m
 [2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m36 passed[39m[22m[90m (37)[39m
-[2m   Start at [22m 17:35:38
-[2m   Duration [22m 3.28s[2m (transform 319ms, setup 0ms, collect 464ms, tests 766ms, environment 2ms, prepare 854ms)[22m
+[2m   Start at [22m 17:39:55
+[2m   Duration [22m 2.02s[2m (transform 203ms, setup 0ms, collect 295ms, tests 476ms, environment 1ms, prepare 455ms)[22m
 
 
-::error file=/home/runner/work/first-descent/first-descent/src/geo/geotiff.ts,title=src/geo/geotiff.test.ts > parseGeotiff > reads a synthetic uncompressed stripped GeoTIFF,line=37,column=47::Error: not a TIFF%0A ❯ Module.parseGeotiff src/geo/geotiff.ts:37:47%0A ❯ src/geo/geotiff.test.ts:73:18%0A%0A
+::error file=/home/runner/work/first-descent/first-descent/src/geo/geotiff.test.ts,title=src/geo/geotiff.test.ts > parseGeotiff > reads an uncompressed stripped GeoTIFF fixture (3x2 float32),line=24,column=27::AssertionError: expected +0 to be close to 60, received difference is 60, but expected 0.005%0A ❯ src/geo/geotiff.test.ts:24:27%0A%0A
  ELIFECYCLE  Test failed. See above for more details.
