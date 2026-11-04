@@ -22,7 +22,7 @@ function buildTiff(w: number, h: number, pixels: Float32Array): ArrayBuffer {
   const ifd = 8 + pixels.length * 4;
   const scaleOff = ifd + 2 + 12 * entries.length + 4;
   const tieOff = scaleOff + 24;
-  const bytes = new Uint8Array(tieOff + 24);
+  const bytes = new Uint8Array(tieOff + 48);
   const dv = new DataView(bytes.buffer);
   let p = 0;
   const u16 = (v: number): void => {

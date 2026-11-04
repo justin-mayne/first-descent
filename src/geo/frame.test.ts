@@ -26,14 +26,14 @@ function rampGrid(): GeoGrid {
     scaleLonDeg: 1 / 111320,
     scaleLatDeg: 1 / 111320,
     westDeg: 0,
-    northDeg: 0,
+    northDeg: 5 / 111320,
     heights,
   };
 }
 
 describe("frameMeters", () => {
   it("preserves slope magnitude through resampling", () => {
-    const frame = frameMeters(rampGrid(), 1, { north: 0, south: 5 / 111320, west: 0, east: 40 / 111320 });
+    const frame = frameMeters(rampGrid(), 1, { north: 5 / 111320, south: 0, west: 0, east: 40 / 111320 });
     const terrain = heightmapTerrain(frame.map);
     const slope = slopeAt(terrain, 20, 2);
     expect(slope.angleRad).toBeCloseTo(45 * DEG, 1);

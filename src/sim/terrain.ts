@@ -63,14 +63,14 @@ export function proceduralTerrain(seed = 7, featureSize = 240, amplitude = 700):
 }
 
 /** A Terrain backed by a parsed heightmap grid, world origin at its (0,0) corner. */
-export function heightmapTerrain(map: { width: number; spacing: number; heights: Float32Array }): Terrain {
+export function heightmapTerrain(map: { width: number; height: number; spacing: number; heights: Float32Array }): Terrain {
   const at = (gx: number, gy: number) => {
     const cx = Math.min(Math.max(gx, 0), map.width - 1);
-    const cy = Math.min(Math.max(gy, 0), map.width - 1);
+    const cy = Math.min(Math.max(gy, 0), map.height - 1);
     const x0 = Math.floor(cx);
     const y0 = Math.floor(cy);
     const x1 = Math.min(x0 + 1, map.width - 1);
-    const y1 = Math.min(y0 + 1, map.width - 1);
+    const y1 = Math.min(y0 + 1, map.height - 1);
     const fx = cx - x0;
     const fy = cy - y0;
     const h = (xx: number, yy: number) => map.heights[yy * map.width + xx];
