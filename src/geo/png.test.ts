@@ -38,8 +38,9 @@ describe("encodePngRgb", () => {
     expect(inflated.length).toBe(h * (1 + w * 3));
     expect(inflated[0]).toBe(0); // filter none
     expect([...inflated.subarray(1, 1 + 9)]).toEqual([255, 0, 0, 0, 255, 0, 0, 0, 255]);
-    expect(inflated[4]).toBe(0); // row 2 filter byte
-    expect([...inflated.subarray(5, 5 + 9)]).toEqual([10, 20, 30, 40, 50, 60, 70, 80, 90]);
+    const stride = 1 + w * 3;
+    expect(inflated[stride]).toBe(0); // row 2 filter byte
+    expect([...inflated.subarray(stride + 1, stride + 1 + 9)]).toEqual([10, 20, 30, 40, 50, 60, 70, 80, 90]);
   });
 
   it("round-trips pixel data for a larger image across stored-block boundaries", () => {
