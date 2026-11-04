@@ -103,32 +103,99 @@ tools/       pipeline CLI: data → framed terrain +    (Node)
 - **M2 — The real line.** DONE for the data path: DEM parsed, framed,
   derived rasters, route snapped to ground truth, asset contract built by
   workflow into `assets/sphinx/`.
-- **M2.5 — UE track opens.** `ue/` project scaffolding in-repo; desktop
-  session imports the M2 assets (Landscape from raw heightmap, layers, line
-  spline) and takes the first photoreal pass.
-- **M3 — Planning view.** MapLibre with the same DEM + line, slope-angle
-  shading, route drawing that exports GPX.
-- **M4 — Conditions layer.** Snow model live in the sim and visualized on
-  terrain; condition field affects physics everywhere.
-- **M5 — Evidence ingestion.** Photos register by geotag; trip reports
-  extract condition observations (assisted structuring) and pin them into
-  the snow model.
-- **M5.5 — Loadout & clothing.** Data-driven gear catalog (ski/glacier kit,
-  avalanche safety, camping, clothing layers) with per-item mass and
-  physics modifiers; loadouts chosen in the planning view and carried into
-  the ride. Mass drives flow drag, braking, climb pace, and the balance
-  model (COM offset); clothing interacts with the conditions model.
-  First real loadout is specced: the 89.5 kg Townsend kit from the
-  simulation spec's mechanics parameters.
-- **M6 — The loop.** Read beta → plan on the map → gear up → ride it in
-  the sim with conditions inferred from the evidence.
+
+## Roadmap to a complete simulator
+
+Honest current state: a real mountain rendered as vertex-lit terrain, a
+point-mass skier with surface-dependent glide/brake/turn physics, and a
+conditions model that exists in code but not yet on screen. No body, no
+snow behavior, no hazards, no gear. The phases below take it from
+"vertical slice" to "simulator," each with acceptance criteria a
+contributor can verify.
+
+### Phase 1 — The athlete (feel and locomotion)
+
+Make the rider a body, not a puck. Superhuman skimo athlete: exaggerate
+technique, never physics.
+
+- Locomotion repertoire: carve vs skid (edge angle), jump turns,
+  side-slip, pole plants, skinning gait, bootpacking with tools
+- Balance model: COM + toppling torque from lateral tilt (the double
+  fall line is the test case), stumble → recovery → fall states
+- Mass & load feed back into pace, braking, balance (bridges to Phase 4)
+- Tunability: parameter presets, telemetry HUD mode, run recording
+- **Acceptance:** a tester can side-slip the rollover, jump-turn the
+  choke, and say "that's how it feels" — or tweak coefficients in one
+  place and feel the difference.
+
+### Phase 2 — The mountain (fidelity)
+
+- Per-pixel terrain shading from the contract's normal/slope rasters
+- Route overlay: line.geojson rendered on the mesh with waypoint markers
+- ArcticDEM 2 m ingestion; multi-LOD grid (2 m face, 15 m apron)
+- Imagery draping (ESRI World Imagery) and stylized modes, switchable
+- Hazards from terrain: bergschrund extraction (curvature anomaly),
+  crevasse zones, cliff bands
+- Weather/time-of-day controls driving the existing environment model
+- **Acceptance:** the West Face reads as THE West Face in screenshots;
+  the schrund is visible and located where the report says.
+
+### Phase 3 — Snow as a system
+
+- Visualize the per-cell condition field (already modeled, not shown)
+- Loose-snow sluff: Voellmy-Salm flow down the fall line using the
+  spec's calibrated parameters — sluff management is this line's core
+  survival mechanic (outrun it or pitch-by-pitch from the ribs)
+- Playable snowpack scenarios from the spec: 2019 breakable crust over
+  sharks vs 2022 velvet powder, same geometry
+- Snow feel: compression, sluff spray, ski tracks
+- **Acceptance:** the 2019 scenario punishes the same mistakes Townsend
+  bailed for; the 2022 scenario skis top-to-bottom ahead of your sluff.
+
+### Phase 4 — Gear, clothing, expedition
+
+- Data-driven gear catalog (ski/glacier kit, avi safety, camping,
+  clothing) with mass, slots, physics modifiers
+- Loadout UI; the 89.5 kg Townsend kit is the reference loadout
+- Clothing × conditions interaction (vent/insulate choices cost pace)
+- Multi-day: bivy, stove/fuel/food, weather windows, tour planning
+- **Acceptance:** loadout choices visibly change how the same line
+  rides; an overnight tour is completable.
+
+### Phase 5 — The loop
+
+- MapLibre planning view: same DEM, slope-angle shading, route drawing,
+  GPX export
+- Evidence ingestion: geotagged photos register; trip reports pin
+  condition observations into the snow model
+- Ghosts of prior descents; leaderboards later; multiplayer undecided
+- **Acceptance:** plan a line in the map view from a trip report, then
+  ride it under the conditions that report implies.
+
+### Phase 6 — High fidelity and release
+
+- UE track: `ue/` project consuming the same asset contract; desktop
+  photoreal passes (M2.5 legacy item)
+- v1.0: packaging, releases, trailer, community kickoff
+
+### Open-source project practices
+
+- MIT stays; third-party data keeps provenance notes (README)
+- CONTRIBUTING + code of conduct + issue templates; good-first-issue
+  labels seeded from Phase 1–2 items
+- CI is the contribution gate: green = mergeable, verdict is public
+- Docs: this plan + an ARCHITECTURE.md describing module boundaries
+  (geo / sim / render / ride) and the asset contract as the extension
+  point for new mountains
+- New mountains = new evidence sets: keep `data/<mountain>/` the
+  documented onboarding path so contributors can add lines
+- Releases tagged from green master with changelogs
 
 ## Open questions
 
-- **Proving ground: The Sphinx, Alaska.** Pin the exact feature (coordinates
-  or a map link) — several Alaskan and one famous Californian feature share
-  the name, and DEM framing needs the precise spot. Preferred DEM: ArcticDEM
-  (~2 m, GeoTIFF); Copernicus GLO-30 as fallback.
-- Trip-report licensing/attribution when ingesting forum text
-- Imagery sources: free (ESRI World Imagery tiles) vs paid (MapTiler) quality
+- Trip-report licensing/attribution when ingesting forum text (current
+  stance: attributed excerpts only in-repo)
+- Imagery sources: free (ESRI World Imagery tiles) vs paid (MapTiler)
 - Multiplayer or ghosts of prior descents later?
+- ArcticDEM access: PGC/Earthdata account on the maintainer side; large
+  files route through CI fetch or laptop
