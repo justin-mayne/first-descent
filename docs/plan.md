@@ -155,7 +155,10 @@ technique, never physics.
 ### Phase 4 — Gear, clothing, expedition
 
 - Data-driven gear catalog (ski/glacier kit, avi safety, camping,
-  clothing) with mass, slots, physics modifiers
+  clothing) with mass, slots, physics modifiers — seeded by
+  `data/gear/gear_master_database.json` (42 items, 10 categories,
+  weight/price/uphill/downhill/float/durability ratings); reference
+  guides in `docs/gear/`
 - Loadout UI; the 89.5 kg Townsend kit is the reference loadout
 - Clothing × conditions interaction (vent/insulate choices cost pace)
 - Multi-day: bivy, stove/fuel/food, weather windows, tour planning
