@@ -94,14 +94,15 @@ tools/       pipeline CLI: data → framed terrain +    (Node)
 
 ## Milestones
 
-- **M0 — Environment proven.** Install/tests/build green; dev server reachable
-  from the iPad's Safari (or deploy-preview fallback confirmed).
-- **M1 — Rideable mountain (procedural).** three.js terrain mesh from the
-  heightfield, skier with the physics core, keyboard controls, camera,
-  HUD (speed/slope/condition). Tuned until the *feel* is right.
-- **M2 — The real line.** DEM for the chosen mountain parsed, framed, and
-  rideable; GPX line overlaid; imagery-draped and stylized modes both render.
-  Output conforms to the asset contract.
+- **M0 — Environment proven.** DONE (CI green, Pages deploys, iPad Safari
+  reaches the ride view).
+- **M1 — Rideable mountain (procedural).** DONE for the real mountain:
+  three.js terrain mesh from the framed Sphinx heightfield, skier on the
+  physics core, chase camera, HUD, keyboard + touch controls; CI includes
+  an acceptance test that rides the committed DEM. Feel-tuning continues.
+- **M2 — The real line.** DONE for the data path: DEM parsed, framed,
+  derived rasters, route snapped to ground truth, asset contract built by
+  workflow into `assets/sphinx/`.
 - **M2.5 — UE track opens.** `ue/` project scaffolding in-repo; desktop
   session imports the M2 assets (Landscape from raw heightmap, layers, line
   spline) and takes the first photoreal pass.
