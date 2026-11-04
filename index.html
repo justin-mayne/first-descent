@@ -19,6 +19,21 @@
   </head>
   <body>
     <div id="root"></div>
+    <div id="fallback" hidden style="position: fixed; inset: auto 0 0 0; padding: 12px;
+      background: #402020; color: #ffb8a8; font-size: 14px; z-index: 99;">
+      Still blank after a few seconds? This page was probably served from the wrong
+      Pages source. Fix: Settings → Pages → Source: GitHub Actions, then re-run the
+      Deploy Pages workflow.
+    </div>
+    <script>
+      setTimeout(function () {
+        var root = document.getElementById("root");
+        if (!root || !root.firstChild) {
+          var f = document.getElementById("fallback");
+          if (f) f.hidden = false;
+        }
+      }, 4000);
+    </script>
     <div id="hud"></div>
     <div id="hint">A / D — edge &nbsp;·&nbsp; S — brake &nbsp;·&nbsp; drag — orbit camera</div>
     <script type="module" src="/src/main.tsx"></script>
