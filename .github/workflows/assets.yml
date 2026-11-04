@@ -1,0 +1,49 @@
+name: Build assets
+
+# Manual run from the Actions tab: builds the render-ready asset contract
+# (16-bit heightfield, slope/normal/aspect PNGs, bounds.json, line.geojson)
+# from the committed DEM and route spec, then commits it to assets/sphinx/.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install
+        run: pnpm install --no-frozen-lockfile
+      - name: Bundle the pipeline
+        run: pnpm exec esbuild tools/build-assets.ts --bundle --platform=node --format=esm --outfile=build-assets.mjs
+      - name: Run the pipeline
+        run: node build-assets.mjs
+
+      - name: Report result
+        if: always()
+        run: |
+          mkdir -p .ci
+          {
+            echo "job=build-assets"
+            echo "verdict=${{ job.status }}"
+            echo "at=$(date -u +%FT%TZ)"
+            for f in assets/sphinx/*; do
+              echo "file=$(basename "$f") bytes=$(stat -c%s "$f" 2>/dev/null || echo 0)"
+            done
+          } > .ci/assets-last-run.env
+          git config user.name "asset-builder"
+          git config user.email "actions@users.noreply.github.com"
+          git add .ci
+          git add assets || true
+          git commit -m "Asset contract rebuild [skip ci]" || exit 0
+          git pull --rebase origin master
+          git push origin master
