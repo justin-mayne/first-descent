@@ -24,12 +24,15 @@ jobs:
       - name: Install
         run: pnpm install --no-frozen-lockfile
       - name: Bundle the pipeline
-        run: pnpm exec esbuild tools/build-assets.ts --bundle --platform=node --format=esm --outfile=build-assets.mjs
+        shell: bash
+        run: pnpm exec esbuild tools/build-assets.ts --bundle --platform=node --format=esm --outfile=build-assets.mjs 2>&1 | tee /tmp/bundle.log
       - name: Run the pipeline
-        run: node build-assets.mjs
+        shell: bash
+        run: node build-assets.mjs 2>&1 | tee /tmp/build.log
 
       - name: Report result
         if: always()
+        shell: bash
         run: |
           mkdir -p .ci
           {
@@ -37,9 +40,20 @@ jobs:
             echo "verdict=${{ job.status }}"
             echo "at=$(date -u +%FT%TZ)"
             for f in assets/sphinx/*; do
-              echo "file=$(basename "$f") bytes=$(stat -c%s "$f" 2>/dev/null || echo 0)"
+              [ -f "$f" ] && echo "file=$(basename "$f") bytes=$(stat -c%s "$f")"
             done
           } > .ci/assets-last-run.env
+          if [ "${{ job.status }}" != "success" ]; then
+            {
+              echo "===== bundle ====="
+              tail -40 /tmp/bundle.log 2>/dev/null || echo "(no log)"
+              echo
+              echo "===== build ====="
+              tail -40 /tmp/build.log 2>/dev/null || echo "(no log)"
+            } > .ci/assets-last-failure.txt
+          else
+            rm -f .ci/assets-last-failure.txt
+          fi
           git config user.name "asset-builder"
           git config user.email "actions@users.noreply.github.com"
           git add .ci
