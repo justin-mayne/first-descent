@@ -94,7 +94,8 @@ Source of truth for framing and modeling; update as evidence lands.
 - [x] Coordinates pin (summit lat/lon)
 - [x] GPX of descent or ascent — `spec/…/route_waypoints_3d.csv` (14 ascent
       + 12 descent waypoints, WGS84 + local Cartesian; geojson in the zip)
-- [ ] Lagasse article URL + publish year; truncated remainder of the report
+- [ ] Lagasse article URL + publish year; full text kept out of the repo
+      for copyright (excerpts only in reports/lagasse-west-face.md)
 - [ ] Photos from the articles (booter, schrund, golden light; Bjarne
       Salén's shots on the onX page) into photos/
 - [x] DEM tile over the pin (`dem/sphinx-cop30.tif` via OpenTopography/CI;
