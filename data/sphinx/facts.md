@@ -59,6 +59,28 @@ Source of truth for framing and modeling; update as evidence lands.
 - West/southeast aspect + coastal latitude 60.5°N: solar geometry already
   handles it
 
+## DEM cross-check (Copernicus GLO-30 crop, Nov 2026)
+
+- Tile: 60.62–60.71 N, −145.15 – −145.00 W · 540×324 @ 1″ (~30 m) ·
+  tiled LZW float32 (`dem/sphinx-cop30.tif`)
+- Pin sample 1917 m; local max **1955 m at 60.66750, −145.06889**, ~118 m
+  from the pin — COP30 sits ~100–135 m above the documented 6,299 ft
+  summit. DEM is ground truth for the pipeline; documented elevation stays
+  as metadata. ArcticDEM 2 m would settle the datum question.
+- **Slope validation of the spec's route track (strong agreement):**
+  rollover 48° (spec ~55), upper diamond 54° (spec 53), mid-face 51°
+  (spec 50–55), schrund approach 30° pocket at ~1560 m — the bergschrund
+  bench is visible in the profile exactly where DSC_09/10 and ASC_05 sit.
+- Route elevations in the spec run 94–240 m below DEM — pipeline snaps
+  waypoint z to DEM; spec z values are advisory only.
+- One outlier: the ASC_01 LZ/apron reads 45° in COP30 where the report
+  describes glacier flats — check against imagery/ArcticDEM before
+  building the apron mesh.
+- Provenance: `spec/` is a Gemini-authored simulation package (unpacked
+  from `the-sphinx-simulation-spec.zip`); lat/lon track and narrative
+  check out against the DEM, force/telemetry numbers are tuning targets,
+  not ground truth.
+
 ## Sources
 
 - gemini-overview.md (compiled summary; sources listed within):
@@ -70,10 +92,10 @@ Source of truth for framing and modeling; update as evidence lands.
 ## Still missing
 
 - [x] Coordinates pin (summit lat/lon)
-- [ ] GPX of descent or ascent (onX page has Townsend's interactive track
-      — extract or hand-digitize from it)
+- [x] GPX of descent or ascent — `spec/…/route_waypoints_3d.csv` (14 ascent
+      + 12 descent waypoints, WGS84 + local Cartesian; geojson in the zip)
 - [ ] Lagasse article URL + publish year; truncated remainder of the report
 - [ ] Photos from the articles (booter, schrund, golden light; Bjarne
       Salén's shots on the onX page) into photos/
-- [ ] DEM tile over the pin (crop via OpenTopography in the browser, see
-      plan: Copernicus GLO-30 fallback)
+- [x] DEM tile over the pin (`dem/sphinx-cop30.tif` via OpenTopography/CI;
+      ArcticDEM 2 m upgrade optional)

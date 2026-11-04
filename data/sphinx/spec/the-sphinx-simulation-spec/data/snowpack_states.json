@@ -1,0 +1,38 @@
+{
+  "scenarios": {
+    "2019_bail_crust": {
+      "name": "April 2019 \u2014 Line */50 (Breakable Wind Crust over Sharks)",
+      "episode_reference": "The FIFTY: Fear in Alaska (2019)",
+      "surface_type": "wind_pressed_breakable_crust_over_facets",
+      "crust_thickness_cm": 6.0,
+      "powder_depth_cm": 5.0,
+      "snow_density_kg_m3": 310.0,
+      "boot_penetration_cm": 7.5,
+      "exposed_rock_shark_probability": 0.18,
+      "skier_basal_friction_mu_k": 0.08,
+      "voellmy_sluff_dry_friction_mu_s": 0.24,
+      "voellmy_turbulent_drag_xi_m_s2": 2200.0,
+      "default_sluff_flow_thickness_m": 0.12,
+      "self_arrest_possible_on_52_deg": false,
+      "uncontrolled_slide_acceleration_m_s2": 7.25,
+      "engineering_notes": "Low boot penetration and high basal acceleration make bootpacking above Z=1550m lethal upon edge slip."
+    },
+    "2022_velvet_powder": {
+      "name": "April 2022 \u2014 Line 38/50 (Cohesive Alaskan Velvet Powder)",
+      "episode_reference": "The FIFTY Ep. 38/50: A Return to the Steeps (2022)",
+      "surface_type": "cohesive_cold_smoke_powder_on_supportable_base",
+      "crust_thickness_cm": 0.0,
+      "powder_depth_cm": 35.0,
+      "snow_density_kg_m3": 140.0,
+      "boot_penetration_cm": 30.0,
+      "exposed_rock_shark_probability": 0.02,
+      "skier_basal_friction_mu_k": 0.14,
+      "voellmy_sluff_dry_friction_mu_s": 0.16,
+      "voellmy_turbulent_drag_xi_m_s2": 1500.0,
+      "default_sluff_flow_thickness_m": 0.38,
+      "self_arrest_possible_on_52_deg": true,
+      "uncontrolled_slide_acceleration_m_s2": 5.1,
+      "engineering_notes": "Secure 30cm bootpack steps; heavy sluff entrainment requires either >20 m/s mach freeride turns or a tactical rib stop at Z=1520m."
+    }
+  }
+}

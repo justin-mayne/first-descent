@@ -1,0 +1,167 @@
+{
+  "project_name": "The Sphinx Ski Mountaineering Simulation",
+  "fifty_classic_line_number": 38,
+  "location": {
+    "peak_name": "The Sphinx",
+    "mountain_range": "Chugach Mountains",
+    "sub_range_zone": "Cordova / Points North Heli-Adventures Operational Zone",
+    "state": "Alaska",
+    "country": "USA",
+    "summit_coordinates_wgs84": {
+      "latitude_deg": 60.66667,
+      "longitude_deg": -145.07028,
+      "dms": "60\u00b040'00\"N, 145\u00b004'13\"W",
+      "elevation_m": 1820.0,
+      "elevation_ft": 6299.0
+    },
+    "base_apron_coordinates_wgs84": {
+      "latitude_deg": 60.66064,
+      "longitude_deg": -145.06071,
+      "elevation_m": 1270.0,
+      "elevation_ft": 4166.7
+    }
+  },
+  "gis_projection_spec": {
+    "geographic_crs": "EPSG:4326",
+    "projected_crs_metric": "EPSG:32606",
+    "projected_crs_name": "WGS 84 / UTM Zone 6N",
+    "alaska_albers_crs": "EPSG:3338",
+    "dem_bounding_box_wgs84": {
+      "north_lat": 60.68,
+      "south_lat": 60.65,
+      "east_lon": -145.045,
+      "west_lon": -145.095
+    },
+    "local_cartesian_origin": {
+      "description": "Origin (0,0,1820) anchored horizontally at Summit Pin; +X = 142 deg SE (Down-face fall-line); +Y = 52 deg NE (Looker's Right / Skier's Left); +Z = Elevation ASL (m)",
+      "origin_lat": 60.66667,
+      "origin_lon": -145.07028,
+      "origin_z_m": 1820.0,
+      "downslope_azimuth_deg": 142.0,
+      "cross_slope_azimuth_deg": 52.0
+    },
+    "recommended_dem_sources": [
+      {
+        "name": "ArcticDEM 2m Strip/Mosaic",
+        "resolution_m": 2.0,
+        "provider": "Polar Geospatial Center (PGC) / AWS Open Data",
+        "notes": "Best resolution for ridge spine and gully definition; still requires procedural boolean cut for bergschrund."
+      },
+      {
+        "name": "USGS 3DEP Alaska IFSAR",
+        "resolution_m": 5.0,
+        "provider": "USGS National Map",
+        "notes": "Reliable gap-free radar elevation coverage across the Cordova Chugach."
+      }
+    ]
+  },
+  "terrain_zones": [
+    {
+      "zone_id": "ZONE_5",
+      "name": "Summit Spine & Blind Rollover",
+      "z_min_m": 1785.0,
+      "z_max_m": 1820.0,
+      "x_min_m": 0.0,
+      "x_max_m": 32.0,
+      "slope_pitch_deg_range": [
+        38.0,
+        55.0
+      ],
+      "cross_tilt_deg_range": [
+        8.0,
+        10.0
+      ],
+      "face_width_m": 15.0,
+      "procedural_features": [
+        "knife_edge_cornice_lookers_right",
+        "convex_blind_rollover_R15m"
+      ]
+    },
+    {
+      "zone_id": "ZONE_4",
+      "name": "Main Diamond Face",
+      "z_min_m": 1520.0,
+      "z_max_m": 1785.0,
+      "x_min_m": 32.0,
+      "x_max_m": 240.0,
+      "slope_pitch_deg_range": [
+        50.0,
+        54.0
+      ],
+      "cross_tilt_deg_range": [
+        5.0,
+        8.0
+      ],
+      "face_width_m": 180.0,
+      "procedural_features": [
+        "double_fall_line_planar_ramp",
+        "skiers_left_protective_rock_rib",
+        "buried_metamorphic_sharks"
+      ]
+    },
+    {
+      "zone_id": "ZONE_3",
+      "name": "Lower Funnel Ramp",
+      "z_min_m": 1375.0,
+      "z_max_m": 1520.0,
+      "x_min_m": 240.0,
+      "x_max_m": 375.0,
+      "slope_pitch_deg_range": [
+        48.0,
+        51.0
+      ],
+      "cross_tilt_deg_range": [
+        4.0,
+        5.0
+      ],
+      "face_width_m": 65.0,
+      "procedural_features": [
+        "converging_funnel_walls",
+        "sluff_compression_channel"
+      ]
+    },
+    {
+      "zone_id": "ZONE_2",
+      "name": "Exit Choke & Bergschrund",
+      "z_min_m": 1340.0,
+      "z_max_m": 1375.0,
+      "x_min_m": 375.0,
+      "x_max_m": 425.0,
+      "slope_pitch_deg_range": [
+        44.0,
+        48.0
+      ],
+      "cross_tilt_deg_range": [
+        0.0,
+        2.0
+      ],
+      "face_width_m": 12.0,
+      "procedural_features": [
+        "12m_rock_choke_throat",
+        "bergschrund_crevasse_width_4m_depth_12m",
+        "snow_bridge_pinch_y_minus_12m"
+      ]
+    },
+    {
+      "zone_id": "ZONE_1",
+      "name": "Glacier Apron & Heli LZ",
+      "z_min_m": 1270.0,
+      "z_max_m": 1340.0,
+      "x_min_m": 425.0,
+      "x_max_m": 850.0,
+      "slope_pitch_deg_range": [
+        10.0,
+        32.0
+      ],
+      "cross_tilt_deg_range": [
+        0.0,
+        0.0
+      ],
+      "face_width_m": 350.0,
+      "procedural_features": [
+        "concave_debris_runout_apron",
+        "heli_staging_pad_at_850m"
+      ]
+    }
+  ]
+}

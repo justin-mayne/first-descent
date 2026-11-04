@@ -1,0 +1,27 @@
+waypoint_id,route_type,sequence_order,zone_id,x_m,y_m,z_elev_m,lat,lon,slope_deg,cross_tilt_deg,normal_x,normal_y,normal_z,target_speed_ms,sluff_speed_ms,notes
+ASC_01,ASCENT,1,ZONE_1,850.0,0.0,1270.0,60.660653,-145.060684,10.0,0.0,0.1736,-0.0,0.9848,1.4,0.0,Heli LZ & staging transition on glacier flats
+ASC_02,ASCENT,2,ZONE_1,680.0,-5.0,1282.0,60.661829,-145.062675,16.0,0.0,0.2756,-0.0,0.9613,1.3,0.0,Skin track ascending lower glacier apron
+ASC_03,ASCENT,3,ZONE_1,520.0,-10.0,1305.0,60.662934,-145.064554,26.0,0.0,0.4384,-0.0,0.8988,1.1,0.0,Upper apron approaching debris fan
+ASC_04,ASCENT,4,ZONE_1,435.0,-12.0,1332.0,60.663524,-145.065543,34.0,1.0,0.5591,-0.0175,0.8289,0.8,0.0,Bootpack transition below bergschrund lip
+ASC_05,ASCENT,5,ZONE_2,415.0,-12.0,1340.0,60.663666,-145.065768,44.0,2.0,0.6942,-0.0349,0.7189,0.5,0.0,Crossing pinched snow bridge over 4m bergschrund
+ASC_06,ASCENT,6,ZONE_2,385.0,4.0,1365.0,60.663967,-145.065876,48.0,3.0,0.7421,-0.0523,0.6682,0.4,0.0,Exiting 12m choke throat and traversing toward looker's right rib
+ASC_07,ASCENT,7,ZONE_3,330.0,22.0,1420.0,60.664456,-145.066237,49.0,4.0,0.7529,-0.0698,0.6545,0.35,0.0,Ascending lower funnel margin out of center sluff line
+ASC_08,ASCENT,8,ZONE_3,275.0,32.0,1480.0,60.6649,-145.066713,50.0,5.0,0.7631,-0.0872,0.6403,0.32,0.0,2019 Bail turnaround proximity on wind-scoured hardpack
+ASC_09,ASCENT,9,ZONE_4,225.0,38.0,1535.0,60.665287,-145.067191,51.0,5.5,0.7736,-0.0958,0.6264,0.3,0.0,Entering main diamond face hugging skier's left rock rib
+ASC_10,ASCENT,10,ZONE_4,165.0,42.0,1605.0,60.665734,-145.06781,52.5,6.0,0.789,-0.1045,0.6054,0.28,0.0,Sustained 52-degree bootpack with crampons and dual ice axes
+ASC_11,ASCENT,11,ZONE_4,105.0,35.0,1685.0,60.66612,-145.068589,54.0,7.0,0.803,-0.1219,0.5834,0.25,0.0,Upper diamond steepening; severe double fall-line exposure
+ASC_12,ASCENT,12,ZONE_4,50.0,20.0,1760.0,60.666427,-145.069427,54.5,8.0,0.8062,-0.1392,0.5751,0.25,0.0,Approaching upper spine below summit cornice
+ASC_13,ASCENT,13,ZONE_5,18.0,8.0,1802.0,60.666587,-145.069961,52.0,9.0,0.7783,-0.1564,0.6081,0.22,0.0,Cresting blind rollover onto corniced summit ridge
+ASC_14,ASCENT,14,ZONE_5,0.0,0.0,1820.0,60.66667,-145.07028,38.0,10.0,0.6063,-0.1736,0.776,0.0,0.0,"True Summit Pin of The Sphinx (6,299 ft / 1,820 m)"
+DSC_01,DESCENT,1,ZONE_5,0.0,0.0,1820.0,60.66667,-145.07028,38.0,10.0,0.6063,-0.1736,0.776,2.0,0.0,Drop-in from narrow summit perch
+DSC_02,DESCENT,2,ZONE_5,15.0,4.0,1805.0,60.666586,-145.070053,55.0,8.0,0.8112,-0.1392,0.568,11.5,8.2,Committing over convex 55-degree blind horizon rollover
+DSC_03,DESCENT,3,ZONE_4,55.0,-6.0,1750.0,60.666247,-145.069746,54.0,7.5,0.8021,-0.1305,0.5828,17.8,15.6,First high-speed GS turn into center-right upper diamond
+DSC_04,DESCENT,4,ZONE_4,110.0,8.0,1678.0,60.665936,-145.068923,53.0,6.5,0.7935,-0.1132,0.5979,19.6,17.8,Linking big-mountain turns across 53-degree double fall-line
+DSC_05,DESCENT,5,ZONE_4,175.0,-8.0,1595.0,60.665387,-145.06842,52.0,6.0,0.7837,-0.1045,0.6123,20.4,18.9,High-speed mid-face carve ahead of growing sluff wave
+DSC_06,DESCENT,6,ZONE_4,240.0,26.0,1520.0,60.665115,-145.067195,50.0,5.0,0.7631,-0.0872,0.6403,4.0,19.1,Tactical pull-out onto elevated skier's left rib to let upper sluff flush past
+DSC_07,DESCENT,7,ZONE_3,305.0,5.0,1448.0,60.664539,-145.066764,49.5,4.5,0.7581,-0.0785,0.6474,16.5,17.5,Re-entering clean lower funnel ramp after sluff wave clears
+DSC_08,DESCENT,8,ZONE_3,355.0,-6.0,1395.0,60.664124,-145.066359,49.0,3.5,0.7533,-0.061,0.6548,19.8,18.4,Setting up alignment for the narrow lower exit throat
+DSC_09,DESCENT,9,ZONE_2,390.0,-10.0,1360.0,60.663854,-145.066022,48.0,2.0,0.7427,-0.0349,0.6687,21.2,18.8,Threading the 12m-wide rock-walled choke at mach speed
+DSC_10,DESCENT,10,ZONE_2,415.0,-12.0,1340.0,60.663666,-145.065768,44.0,0.0,0.6947,-0.0,0.7193,22.5,16.5,Airing across the bergschrund snow bridge onto the apron
+DSC_11,DESCENT,11,ZONE_1,550.0,-8.0,1295.0,60.662732,-145.064186,24.0,0.0,0.4067,-0.0,0.9135,14.5,6.0,High-speed GS decompression turns across concave glacier apron
+DSC_12,DESCENT,12,ZONE_1,850.0,0.0,1270.0,60.660653,-145.060684,10.0,0.0,0.1736,-0.0,0.9848,0.0,0.0,Complete stop at glacier landing zone
